@@ -1,418 +1,279 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="fr" dir="ltr" id="htmlRoot">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salon Om Thamer</title>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts for Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* General Reset & Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salon Om Thamer</title>
+<link rel="icon" href="img/icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold: #c9a568;
+    --gold-dark: #a9834a;
+    --rose: #e8c4c4;
+    --rose-dark: #d9a3a3;
+    --white: #ffffff;
+    --text: #3a2e2e;
+    --soft-bg: #ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Poppins',sans-serif;
+    background:var(--white);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+  }
+  [dir="rtl"] body{font-family:'Tajawal',sans-serif;}
 
-        body {
-            background-color: #ffffff;
-            color: #333333;
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-        }
+  /* ---- decorative salon background pattern ---- */
+  .bg-decor{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    opacity:0.06;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><text x='10' y='40' font-size='34'>✂️</text><text x='60' y='90' font-size='30'>💄</text><text x='10' y='110' font-size='26'>🌸</text><text x='80' y='30' font-size='26'>💇‍♀️</text></svg>");
+    background-size:140px 140px;
+    pointer-events:none;
+  }
 
-        /* Faint Luxury Background Pattern */
-        .bg-pattern {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05), transparent 400px),
-                              radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05), transparent 400px),
-                              url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23d4af37" fill-opacity="0.03"><path d="M30 30c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10-10-4.477-10-10zm0 0c0 5.523-4.477 10-10 10S10 35.523 10 30s4.477-10 10-10 10 4.477 10 10z"/></g></g></svg>');
-            z-index: -1;
-        }
+  /* ---- language switch ---- */
+  .lang-switch{
+    position:fixed;
+    top:14px;
+    right:14px;
+    z-index:20;
+    display:flex;
+    gap:6px;
+    background:var(--white);
+    border:1px solid var(--rose-dark);
+    border-radius:30px;
+    padding:4px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+  }
+  [dir="rtl"] .lang-switch{right:auto;left:14px;}
+  .lang-switch button{
+    border:none;
+    background:transparent;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    color:var(--text);
+    transition:.2s;
+  }
+  .lang-switch button.active{
+    background:var(--gold);
+    color:#fff;
+  }
 
-        /* Arabic Font Override */
-        html[lang="ar"] body {
-            font-family: 'Cairo', sans-serif;
-        }
-        html[lang="ar"] .profile h1 {
-            font-family: 'Amiri', serif;
-            font-size: 28px;
-        }
+  .container{
+    position:relative;
+    z-index:1;
+    max-width:460px;
+    margin:0 auto;
+    padding:70px 20px 40px;
+    text-align:center;
+  }
 
-        /* Main Container */
-        .container {
-            width: 100%;
-            max-width: 480px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
+  /* ---- logo + stars ---- */
+  .logo-wrap{
+    position:relative;
+    width:150px;
+    height:150px;
+    margin:0 auto 18px;
+  }
+  .logo-wrap img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:50%;
+    border:4px solid var(--gold);
+    box-shadow:0 6px 20px rgba(201,165,104,0.35);
+    position:relative;
+    z-index:2;
+    background:#fff;
+  }
+  .star{
+    position:absolute;
+    color:var(--gold);
+    font-size:16px;
+    z-index:3;
+    animation:twinkle 2.4s infinite ease-in-out;
+  }
+  .star:nth-child(1){top:-6px; left:10px; animation-delay:0s;}
+  .star:nth-child(2){top:20%; right:-14px; animation-delay:.4s; font-size:12px;}
+  .star:nth-child(3){bottom:10%; left:-16px; animation-delay:.8s; font-size:14px;}
+  .star:nth-child(4){bottom:-8px; right:20%; animation-delay:1.2s;}
+  .star:nth-child(5){top:-10px; right:30%; animation-delay:1.6s; font-size:10px;}
+  .star:nth-child(6){bottom:0; left:30%; animation-delay:2s; font-size:12px;}
+  @keyframes twinkle{
+    0%,100%{opacity:.2; transform:scale(0.7) rotate(0deg);}
+    50%{opacity:1; transform:scale(1.2) rotate(20deg);}
+  }
 
-        /* Language Switcher */
-        .lang-switch {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: #ffffff;
-            border: 1px solid #d4af37;
-            color: #d4af37;
-            padding: 6px 18px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-family: inherit;
-            font-weight: 600;
-            font-size: 13px;
-            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.1);
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
+  h1{
+    font-family:'Playfair Display',serif;
+    font-size:26px;
+    color:var(--gold-dark);
+    margin-bottom:6px;
+  }
+  [dir="rtl"] h1{font-family:'Tajawal',sans-serif;}
 
-        html[lang="ar"] .lang-switch { right: auto; left: 0; }
-        .lang-switch:hover { background: #d4af37; color: white; transform: scale(1.05); }
+  .tagline{
+    font-size:14px;
+    color:#8a7a7a;
+    margin-bottom:14px;
+  }
 
-        /* Profile Header */
-        .profile {
-            margin-top: 60px;
-            margin-bottom: 20px;
-        }
+  .desc{
+    font-size:13.5px;
+    line-height:1.7;
+    color:var(--text);
+    background:var(--soft-bg);
+    border:1px solid #eee;
+    padding:14px 16px;
+    border-radius:14px;
+    margin-bottom:22px;
+  }
 
-        /* Decorated Avatar Wrapper */
-        .avatar-wrapper {
-            position: relative;
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 20px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+  .address{
+    font-size:13px;
+    color:#7a6a6a;
+    margin-bottom:26px;
+    line-height:1.6;
+  }
+  .address b{display:block; color:var(--gold-dark); margin-bottom:2px; font-size:13.5px;}
 
-        /* Spinning Gold Ring */
-        .avatar-ring {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 1px dashed #d4af37;
-            border-top: 1px solid transparent;
-            border-bottom: 1px solid transparent;
-            animation: spin 15s linear infinite;
-        }
+  /* ---- link buttons ---- */
+  .links{display:flex; flex-direction:column; gap:12px;}
+  .btn{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    border-radius:16px;
+    text-decoration:none;
+    color:#fff;
+    font-weight:500;
+    font-size:15px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    transition:transform .15s ease;
+  }
+  .btn:active{transform:scale(0.97);}
+  .btn svg{width:22px; height:22px; flex-shrink:0;}
+  .btn span{margin-inline-start:auto; margin-inline-end:auto;}
 
-        .avatar-ring::before {
-            content: '';
-            position: absolute;
-            top: 5px; left: 5px; right: 5px; bottom: 5px;
-            border-radius: 50%;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-        }
+  .btn.instagram{background:linear-gradient(45deg,#f58529,#dd2a7b,#8134af,#515bd4);}
+  .btn.tiktok{background:#010101;}
+  .btn.whatsapp{background:#25D366;}
+  .btn.call{background:var(--gold);}
+  .btn.maps{background:#4285F4;}
 
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+  footer{
+    margin-top:30px;
+    font-size:11.5px;
+    color:#b0a0a0;
+  }
 
-        /* Profile Image */
-        .profile img {
-            width: 116px;
-            height: 116px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ffffff;
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
-            z-index: 2;
-        }
+  @media (max-width:360px){
+    .logo-wrap{width:120px;height:120px;}
+    h1{font-size:22px;}
+  }
 
-        /* Twinkling Sparkles */
-        .sparkle {
-            position: absolute;
-            color: #d4af37;
-            font-size: 14px;
-            animation: twinkle 2s infinite alternate;
-            z-index: 3;
-        }
-        .s1 { top: 10px; right: 10px; font-size: 18px; animation-delay: 0s; }
-        .s2 { bottom: 20px; left: 5px; font-size: 12px; animation-delay: 1s; }
-        .s3 { top: 50%; right: -15px; font-size: 10px; animation-delay: 0.5s; }
-
-        @keyframes twinkle {
-            0% { transform: scale(0.8) rotate(0deg); opacity: 0.5; }
-            100% { transform: scale(1.2) rotate(15deg); opacity: 1; text-shadow: 0 0 8px #d4af37; }
-        }
-
-        .profile h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 26px;
-            font-weight: 600;
-            color: #222;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-        }
-
-        .profile p {
-            font-size: 14px;
-            color: #777;
-            line-height: 1.6;
-            padding: 0 15px;
-            font-weight: 300;
-        }
-
-        /* Decorative Elegant Divider */
-        .salon-divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 30px 0;
-            color: #d4af37;
-        }
-        .salon-divider i {
-            font-size: 18px;
-            margin: 0 15px;
-            filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.3));
-        }
-        .salon-divider::before, .salon-divider::after {
-            content: '';
-            height: 1px;
-            width: 80px;
-            background: linear-gradient(to right, transparent, #d4af37, transparent);
-        }
-
-        /* Links / Buttons */
-        .links-container {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .link-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 16px 20px;
-            background: linear-gradient(145deg, #ffffff, #fafafa);
-            color: #444;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 500;
-            border-radius: 12px;
-            border: 1px solid #f0f0f0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .link-btn::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; bottom: 0; width: 4px;
-            background: #d4af37;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-        html[lang="ar"] .link-btn::before { left: auto; right: 0; }
-
-        .link-btn i {
-            position: absolute;
-            left: 22px;
-            font-size: 20px;
-            color: #888;
-            transition: all 0.3s ease;
-        }
-        html[lang="ar"] .link-btn i { left: auto; right: 22px; }
-
-        /* General Hover and Click Effects for all Buttons */
-        .link-btn:hover, .link-btn:active {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.1);
-        }
-        .link-btn:hover::before, .link-btn:active::before { opacity: 1; }
-        
-        /* Specific Hover and Click Effects with Unique Colors for Icons and Text */
-        .link-btn i {
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-        
-        /* WhatsApp unique interaction colors (Green) */
-        .link-btn.whatsapp:hover, .link-btn.whatsapp:active { border-color: #25D366; }
-        .link-btn.whatsapp:hover i, .link-btn.whatsapp:active i { color: #25D366; transform: scale(1.1); }
-        .link-btn.whatsapp:hover span, .link-btn.whatsapp:active span { color: #25D366; }
-        .link-btn.whatsapp:hover::before, .link-btn.whatsapp:active::before { background: #25D366; }
-
-        /* Phone unique interaction colors (Gold accent) */
-        .link-btn.phone:hover, .link-btn.phone:active { border-color: #d4af37; }
-        .link-btn.phone:hover i, .link-btn.phone:active i { color: #d4af37; transform: scale(1.1); }
-        .link-btn.phone:hover span, .link-btn.phone:active span { color: #d4af37; }
-        .link-btn.phone:hover::before, .link-btn.phone:active::before { background: #d4af37; }
-
-        /* Instagram unique interaction colors (Pink/Purple) */
-        .link-btn.instagram:hover, .link-btn.instagram:active { border-color: #E1306C; }
-        .link-btn.instagram:hover i, .link-btn.instagram:active i { color: #E1306C; transform: scale(1.1); }
-        .link-btn.instagram:hover span, .link-btn.instagram:active span { color: #E1306C; }
-        .link-btn.instagram:hover::before, .link-btn.instagram:active::before { background: #E1306C; }
-
-        /* TikTok unique interaction colors (Pink) */
-        .link-btn.tiktok:hover, .link-btn.tiktok:active { border-color: #FE2C55; }
-        .link-btn.tiktok:hover i, .link-btn.tiktok:active i { color: #FE2C55; transform: scale(1.1); }
-        .link-btn.tiktok:hover span, .link-btn.tiktok:active span { color: #FE2C55; }
-        .link-btn.tiktok:hover::before, .link-btn.tiktok:active::before { background: #FE2C55; }
-
-        /* Google Maps unique interaction colors (Red) */
-        .link-btn.maps:hover, .link-btn.maps:active { border-color: #EA4335; }
-        .link-btn.maps:hover i, .link-btn.maps:active i { color: #EA4335; transform: scale(1.1); }
-        .link-btn.maps:hover span, .link-btn.maps:active span { color: #EA4335; }
-        .link-btn.maps:hover::before, .link-btn.maps:active::before { background: #EA4335; }
-
-
-        /* Special WhatsApp Pulse Animation (kept for extra attention) */
-        .pulse-btn {
-            animation: pulse-shadow 2s infinite;
-            border: 1px solid rgba(37, 211, 102, 0.3);
-        }
-        .pulse-btn i { color: #25D366; }
-        @keyframes pulse-shadow {
-            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
-
-        /* Footer */
-        .footer {
-            margin-top: 50px;
-            padding-bottom: 20px;
-            font-size: 12px;
-            color: #b0b0b0;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        /* Entrance Animations */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.7s ease forwards;
-        }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-        .delay-5 { animation-delay: 0.5s; }
-        .delay-6 { animation-delay: 0.6s; }
-
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+  [data-lang="fr"] .ar-only{display:none;}
+  [data-lang="ar"] .fr-only{display:none;}
+</style>
 </head>
-<body>
+<body data-lang="fr">
 
-    <!-- Faint background decor -->
-    <div class="bg-pattern"></div>
+<div class="bg-decor"></div>
 
-    <div class="container">
-        <!-- Language Toggle Button -->
-        <button class="lang-switch fade-in-up" onclick="toggleLanguage()" id="langBtn">العربية</button>
+<div class="lang-switch">
+  <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+  <button id="btn-ar" onclick="setLang('ar')">AR</button>
+</div>
 
-        <!-- Profile Section -->
-        <div class="profile fade-in-up delay-1">
-            <div class="avatar-wrapper">
-                <div class="avatar-ring"></div>
-                <!-- Load logo from img/logo.png as specified -->
-                <img src="img/logo.png" alt="Salon Om Thamer Logo" onerror="this.src='https://ui-avatars.com/api/?name=Om+Thamer&background=fff&color=d4af37&font-size=0.33'">
-                <i class="fas fa-star sparkle s1"></i>
-                <i class="fas fa-star sparkle s2"></i>
-                <i class="fas fa-star sparkle s3"></i>
-            </div>
-            
-            <h1 data-fr="Salon Om Thamer" data-ar="صالون أم ثامر">Salon Om Thamer</h1>
-            
-            <p data-fr="L'excellence de la beauté, de la coiffure et des soins dans un cadre luxueux et professionnel." 
-               data-ar="التميز في عالم الجمال، تصفيف الشعر والعناية في أجواء فاخرة واحترافية.">
-               L'excellence de la beauté, de la coiffure et des soins dans un cadre luxueux et professionnel.
-            </p>
-        </div>
+<div class="container">
 
-        <!-- Decorative Divider -->
-        <div class="salon-divider fade-in-up delay-2">
-            <i class="fas fa-cut"></i>
-        </div>
+  <div class="logo-wrap">
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <span class="star">✦</span>
+    <img src="img/logo.png" alt="Salon Om Thamer Logo">
+  </div>
 
-        <!-- Links Section -->
-        <div class="links-container">
-            
-            <!-- WhatsApp (With unique interaction colors and pulsing effect) -->
-            <a href="https://wa.me/212642527227" target="_blank" class="link-btn whatsapp pulse-btn fade-in-up delay-3">
-                <i class="fab fa-whatsapp"></i>
-                <span data-fr="Prendre rendez-vous" data-ar="احجز موعدك الآن">Prendre rendez-vous</span>
-            </a>
+  <h1>Salon Om Thamer</h1>
+  <p class="tagline fr-only">Institut de beauté & coiffure</p>
+  <p class="tagline ar-only">معهد التجميل والحلاقة</p>
 
-            <!-- Phone Call (Unique gold interaction colors) -->
-            <a href="tel:+212642527227" class="link-btn phone fade-in-up delay-4">
-                <i class="fas fa-phone-alt"></i>
-                <span data-fr="Appelez-nous" data-ar="اتصل بنا">Appelez-nous</span>
-            </a>
+  <p class="desc fr-only">Un espace de beauté chaleureux à Ait Melloul, dédié à votre coiffure, soins et bien-être. Un service soigné, dans une ambiance élégante et accueillante. ✨</p>
+  <p class="desc ar-only">فضاء تجميل دافئ بآيت ملول، مخصص للعناية بالشعر والبشرة والاسترخاء. خدمة متقنة في أجواء أنيقة ومرحبة. ✨</p>
 
-            <!-- Instagram (Unique pink interaction colors) -->
-            <a href="https://www.instagram.com/salon_omthamer" target="_blank" class="link-btn instagram fade-in-up delay-5">
-                <i class="fab fa-instagram"></i>
-                <span data-fr="Nos réalisations Instagram" data-ar="أعمالنا على إنستغرام">Nos réalisations Instagram</span>
-            </a>
+  <div class="address">
+    <b class="fr-only">📍 Adresse</b>
+    <span class="fr-only">Lot Talaint - Inzigane, Ait Melloul, Agadir, Morocco</span>
+    <b class="ar-only">📍 العنوان</b>
+    <span class="ar-only">تجزئة تيلعنت - إنزكان، آيت ملول، أكادير، المغرب</span>
+  </div>
 
-            <!-- TikTok (Unique pink interaction colors) -->
-            <a href="https://www.tiktok.com/@salon_omthamer" target="_blank" class="link-btn tiktok fade-in-up delay-6">
-                <i class="fab fa-tiktok"></i>
-                <span data-fr="Découvrir notre TikTok" data-ar="اكتشف حسابنا على تيك توك">Découvrir notre TikTok</span>
-            </a>
+  <div class="links">
+    <a class="btn instagram" href="https://www.instagram.com/salon_omthamer" target="_blank">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 3.3.15 4.8 1.7 4.95 4.95.06 1.3.07 1.6.07 4.8s0 3.5-.07 4.8c-.15 3.25-1.65 4.8-4.95 4.95-1.3.06-1.6.07-4.9.07s-3.6 0-4.9-.07c-3.3-.15-4.8-1.71-4.95-4.95-.06-1.3-.07-1.6-.07-4.8s0-3.5.07-4.8C2.3 3.97 3.8 2.42 7.1 2.27 8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.5 0-4.75.07-2.35.1-3.44 1.2-3.54 3.54-.06 1.24-.07 1.6-.07 4.75s0 3.5.07 4.75c.1 2.34 1.19 3.44 3.54 3.54 1.24.06 1.6.07 4.75.07s3.5 0 4.75-.07c2.34-.1 3.44-1.2 3.54-3.54.06-1.24.07-1.6.07-4.75s0-3.5-.07-4.75c-.1-2.35-1.2-3.44-3.54-3.54-1.24-.06-1.6-.07-4.75-.07zm0 3.05a4.95 4.95 0 1 1 0 9.9 4.95 4.95 0 0 1 0-9.9zm0 1.8a3.15 3.15 0 1 0 0 6.3 3.15 3.15 0 0 0 0-6.3zm5.15-2a1.16 1.16 0 1 1-2.32 0 1.16 1.16 0 0 1 2.32 0z"/></svg>
+      <span class="fr-only">Instagram</span><span class="ar-only">إنستغرام</span>
+    </a>
 
-            <!-- Address / Google Maps (Unique red interaction colors) -->
-            <a href="https://maps.app.goo.gl/cvZXhGiT85LbgqHU8" target="_blank" class="link-btn maps fade-in-up delay-6">
-                <i class="fas fa-map-marker-alt"></i>
-                <span data-fr="Lot Talaint - Inzigane, Agadir" data-ar="تجزئة تيلعنت - إنزكان، أكادير">Lot Talaint - Inzigane, Agadir</span>
-            </a>
+    <a class="btn tiktok" href="https://www.tiktok.com/@salon_omthamer" target="_blank">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M16.6 5.82a4.28 4.28 0 0 1-3.13-1.39V14.7a5.1 5.1 0 1 1-4.3-5.04v2.2a2.9 2.9 0 1 0 2.04 2.77V2h2.26a4.28 4.28 0 0 0 3.13 3.6v2.22a6.5 6.5 0 0 1-3.13-1.02v7.9a5.1 5.1 0 0 1-5.1 5.1 5.1 5.1 0 0 1-5.1-5.1 5.1 5.1 0 0 1 5.1-5.1c.28 0 .56.02.83.07V7.6a7.37 7.37 0 0 0-.83-.05A7.36 7.36 0 0 0 1 14.9 7.36 7.36 0 0 0 8.37 22.3a7.36 7.36 0 0 0 7.36-7.36V9.3a6.58 6.58 0 0 0 3.8 1.2V8.28a4.27 4.27 0 0 1-3-2.46z"/></svg>
+      <span>TikTok</span>
+    </a>
 
-        </div>
+    <a class="btn whatsapp" href="https://wa.me/212642527227" target="_blank">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M17.5 14.4c-.3-.15-1.7-.85-2-.94-.27-.1-.46-.15-.66.15-.2.3-.75.94-.92 1.13-.17.2-.34.22-.63.08-.3-.15-1.24-.46-2.36-1.46-.87-.78-1.46-1.74-1.63-2.03-.17-.3-.02-.46.13-.6.13-.14.3-.34.44-.51.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.66-1.6-.9-2.2-.24-.58-.48-.5-.66-.5-.17-.01-.37-.01-.56-.01s-.52.08-.8.37c-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.5.71.3 1.26.49 1.7.62.71.23 1.36.2 1.87.12.57-.08 1.7-.7 1.94-1.37.24-.68.24-1.26.17-1.38-.07-.12-.27-.2-.57-.35z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.9.53 3.68 1.44 5.2L2 22l4.9-1.4A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18a7.9 7.9 0 0 1-4.3-1.26l-.31-.2-3.2.9.87-3.1-.2-.32A7.93 7.93 0 1 1 12 20z"/></svg>
+      <span class="fr-only">WhatsApp</span><span class="ar-only">واتساب</span>
+    </a>
 
-        <div class="footer fade-in-up delay-6">
-            &copy; 2024 Salon Om Thamer
-        </div>
-    </div>
+    <a class="btn call" href="tel:+212642527227">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.2 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.5 21 3 13.5 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>
+      <span class="fr-only">Appeler / WhatsApp</span><span class="ar-only">اتصل بنا</span>
+    </a>
 
-    <!-- Language Switcher Script (keeps everything working) -->
-    <script>
-        let currentLang = 'fr';
+    <a class="btn maps" href="https://maps.app.goo.gl/cvZXhGiT85LbgqHU8" target="_blank">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M12 2C7.6 2 4 5.6 4 10c0 5.4 7 11.5 7.3 11.8.4.3 1 .3 1.4 0C13 21.5 20 15.4 20 10c0-4.4-3.6-8-8-8zm0 10.8A2.8 2.8 0 1 1 12 6.4a2.8 2.8 0 0 1 0 5.6z"/></svg>
+      <span class="fr-only">Voir sur Google Maps</span><span class="ar-only">الموقع على خرائط غوغل</span>
+    </a>
+  </div>
 
-        function toggleLanguage() {
-            const htmlTag = document.documentElement;
-            const langBtn = document.getElementById('langBtn');
-            const translatableElements = document.querySelectorAll('[data-fr]');
+  <footer>
+    <span class="fr-only">© 2026 Salon Om Thamer — Tous droits réservés</span>
+    <span class="ar-only">© 2026 صالون أم ثامر — جميع الحقوق محفوظة</span>
+  </footer>
 
-            if (currentLang === 'fr') {
-                currentLang = 'ar';
-                htmlTag.setAttribute('lang', 'ar');
-                htmlTag.setAttribute('dir', 'rtl');
-                langBtn.textContent = 'Français';
-                
-                translatableElements.forEach(el => {
-                    el.textContent = el.getAttribute('data-ar');
-                });
-            } else {
-                currentLang = 'fr';
-                htmlTag.setAttribute('lang', 'fr');
-                htmlTag.setAttribute('dir', 'ltr');
-                langBtn.textContent = 'العربية';
+</div>
 
-                translatableElements.forEach(el => {
-                    el.textContent = el.getAttribute('data-fr');
-                });
-            }
-        }
-    </script>
+<script>
+function setLang(lang){
+  document.body.setAttribute('data-lang', lang);
+  const html = document.getElementById('htmlRoot');
+  if(lang === 'ar'){
+    html.setAttribute('lang','ar');
+    html.setAttribute('dir','rtl');
+    document.getElementById('btn-ar').classList.add('active');
+    document.getElementById('btn-fr').classList.remove('active');
+  } else {
+    html.setAttribute('lang','fr');
+    html.setAttribute('dir','ltr');
+    document.getElementById('btn-fr').classList.add('active');
+    document.getElementById('btn-ar').classList.remove('active');
+  }
+}
+</script>
+
 </body>
 </html>
