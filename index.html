@@ -172,6 +172,7 @@
   .btn.whatsapp{background:#25D366;}
   .btn.call{background:var(--gold);}
   .btn.maps{background:#4285F4;}
+  .btn.contact{background:var(--rose-dark);}
 
   footer{
     margin-top:30px;
@@ -244,6 +245,11 @@
       <span class="fr-only">Appeler / WhatsApp</span><span class="ar-only">اتصل بنا</span>
     </a>
 
+    <a class="btn contact" id="saveContactBtn" href="#" download="Salon-Om-Thamer.vcf">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM8 12a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm5 6H4v-.5C4 15.6 6.1 14 8 14s4 1.6 4 3.5V18zm7-4h-5v-1.5h5V14zm0-3h-5V9.5h5V11z"/></svg>
+      <span class="fr-only">Enregistrer le contact</span><span class="ar-only">حفظ الرقم في جهات الاتصال</span>
+    </a>
+
     <a class="btn maps" href="https://maps.app.goo.gl/cvZXhGiT85LbgqHU8" target="_blank">
       <svg viewBox="0 0 24 24" fill="white"><path d="M12 2C7.6 2 4 5.6 4 10c0 5.4 7 11.5 7.3 11.8.4.3 1 .3 1.4 0C13 21.5 20 15.4 20 10c0-4.4-3.6-8-8-8zm0 10.8A2.8 2.8 0 1 1 12 6.4a2.8 2.8 0 0 1 0 5.6z"/></svg>
       <span class="fr-only">Voir sur Google Maps</span><span class="ar-only">الموقع على خرائط غوغل</span>
@@ -258,6 +264,12 @@
 </div>
 
 <script>
+(function(){
+  const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Salon Om Thamer\nORG:Salon Om Thamer\nTEL;TYPE=CELL,VOICE:+212642527227\nEND:VCARD";
+  const blob = new Blob([vcard], {type:"text/vcard;charset=utf-8"});
+  document.getElementById('saveContactBtn').href = URL.createObjectURL(blob);
+})();
+
 function setLang(lang){
   document.body.setAttribute('data-lang', lang);
   const html = document.getElementById('htmlRoot');
